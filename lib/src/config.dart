@@ -69,7 +69,7 @@ class Config {
       .where((device) => device.deviceType == DeviceType.android)
       .toList();
 
-  bool get isFrameEnabled => _configInfo['frame'];
+  bool get isFrameEnabled => _configInfo['frame'] ?? true;
 
   String get recordingDir => _configInfo['recording'];
 
