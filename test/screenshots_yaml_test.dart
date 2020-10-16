@@ -9,8 +9,6 @@ import 'package:test/test.dart';
 import 'package:screenshots/src/fastlane.dart' as fastlane;
 import 'package:yaml/yaml.dart';
 
-import 'src/common.dart';
-
 final screenshotsYaml = '''
 # Screen capture tests
 tests:
@@ -90,9 +88,9 @@ void main() {
   });
 
   test('validate config file', () async {
-    final Screens screens = Screens();
+    final screens = Screens();
     await screens.init();
-    final Config config = Config(configPath: 'test/screenshots_test.yaml');
+    final config = Config(configPath: 'test/screenshots_test.yaml');
     final daemonClient = DaemonClient();
     await daemonClient.start;
     // for this test change directory
@@ -111,7 +109,7 @@ void main() {
   }, skip:     true  );
 
   test('clear all destination directories on init', () async {
-    final Screens screens = Screens();
+    final screens = Screens();
     await screens.init();
     final config = Config(configStr: screenshotsYaml);
     await fastlane.clearFastlaneDirs(config, screens, RunMode.normal);

@@ -49,7 +49,7 @@ class DaemonClient {
 
   /// List installed emulators (not including iOS simulators).
   Future<List<DaemonEmulator>> get emulators async {
-    final List emulators = await _sendCommandWaitResponse(
+    final emulators = await _sendCommandWaitResponse(
         <String, dynamic>{'method': 'emulator.getEmulators'});
     final daemonEmulators = <DaemonEmulator>[];
     for (var emulator in emulators) {
@@ -178,7 +178,7 @@ class DaemonClient {
     if (_connected) {
       _waitForResponse = Completer<String>();
       command['id'] = _messageId++;
-      final String str = '[${json.encode(command)}]';
+      final str = '[${json.encode(command)}]';
       _process.stdin.writeln(str);
       printTrace('==> $str');
     } else {
@@ -231,7 +231,7 @@ List getIosDevices() {
 /// Wait for emulator or simulator to start
 Future waitForEmulatorToStart(
     DaemonClient daemonClient, String deviceId) async {
-  bool started = false;
+  var started = false;
   while (!started) {
     printTrace(
         'waiting for emulator/simulator with device id \'$deviceId\' to start...');

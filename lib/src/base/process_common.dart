@@ -16,7 +16,7 @@ const Map<String, String> _osToPathStyle = <String, String>{
   'windows': 'windows',
 };
 
-///// Sanatizes the executable path on Windows.
+///// Sanitizes the executable path on Windows.
 ///// https://github.com/dart-lang/sdk/issues/37751
 //String sanitizeExecutablePath(String executable,
 //    {Platform platform = const LocalPlatform()}) {
@@ -57,23 +57,23 @@ String getExecutablePath(
   assert(_osToPathStyle[platform.operatingSystem] == fs.path.style.name);
 
   workingDirectory ??= fs.currentDirectory.path;
-  Context context = Context(style: fs.path.style, current: workingDirectory);
+  var context = Context(style: fs.path.style, current: workingDirectory);
 
   // TODO(goderbauer): refactor when github.com/google/platform.dart/issues/2
   //     is available.
-  String pathSeparator = platform.isWindows ? ';' : ':';
+  var pathSeparator = platform.isWindows ? ';' : ':';
 
-  List<String> extensions = <String>[];
+  var extensions = <String>[];
   if (platform.isWindows && context.extension(command).isEmpty) {
     extensions = platform.environment['PATHEXT'].split(pathSeparator);
   }
 
-  List<String> candidates = <String>[];
+  var candidates = <String>[];
   if (command.contains(context.separator)) {
     candidates = _getCandidatePaths(
         command, <String>[workingDirectory], extensions, context);
   } else {
-    List<String> searchPath = platform.environment['PATH'].split(pathSeparator);
+    var searchPath = platform.environment['PATH'].split(pathSeparator);
     candidates = _getCandidatePaths(command, searchPath, extensions, context);
   }
   return candidates.firstWhere((String path) => fs.file(path).existsSync(),
@@ -93,7 +93,7 @@ Iterable<String> _getCandidatePaths(
   List<String> extensions,
   Context context,
 ) {
-  List<String> withExtensions = extensions.isNotEmpty
+  var withExtensions = extensions.isNotEmpty
       ? extensions.map((String ext) => '$command$ext').toList()
       : <String>[command];
   if (context.isAbsolute(command)) {

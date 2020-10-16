@@ -15,7 +15,7 @@ typedef ContextInitializer = void Function(AppContext testContext);
 @isTest
 void testUsingContext(
   String description,
-  dynamic testMethod(), {
+  dynamic Function() testMethod, {
   Timeout timeout,
   Map<Type, Generator> overrides = const <Type, Generator>{},
   bool initializeFlutterRoot = true,
@@ -35,7 +35,7 @@ void testUsingContext(
   Config buildConfig(FileSystem fs) {
     configDir =
         fs.systemTempDirectory.createTempSync('flutter_config_dir_test.');
-    final File settingsFile =
+    final settingsFile =
         fs.file(fs.path.join(configDir.path, '.flutter_settings'));
     return Config(settingsFile);
   }

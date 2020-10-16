@@ -46,7 +46,7 @@ class ImageProcessor {
     RunMode runMode,
     Archive archive,
   ) async {
-    final Map screenProps = _screens.getScreen(deviceName);
+    final screenProps = _screens.getScreen(deviceName);
     final screenshotsDir = '${_config.stagingDir}/$kTestScreenshotsDir';
     final screenshotPaths = fs.directory(screenshotsDir).listSync();
     if (screenProps == null) {
@@ -88,7 +88,7 @@ class ImageProcessor {
     // move to final destination for upload to stores via fastlane
     if (screenshotPaths.isNotEmpty) {
       final androidModelType = fastlane.getAndroidModelType(screenProps, deviceName);
-      String dstDir = fastlane.getDirPath(deviceType, locale, androidModelType);
+      var dstDir = fastlane.getDirPath(deviceType, locale, androidModelType);
       runMode == RunMode.recording
           ? dstDir = '${_config.recordingDir}/$dstDir'
           : null;
@@ -132,7 +132,7 @@ class ImageProcessor {
   @visibleForTesting
   static Future<Map> compareImages(
       String deviceName, String recordingDir, String comparisonDir) async {
-    Map failedCompare = {};
+    var failedCompare = {};
     final recordedImages = fs.directory(recordingDir).listSync();
     fs
         .directory(comparisonDir)

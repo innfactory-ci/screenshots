@@ -12,7 +12,7 @@ import 'package:tool_base/tool_base.dart';
 ///
 Future unpackImages(Map screenResources, String dstDir) async {
   for (String resourcePath in screenResources.values) {
-    List<int> resourceImage = await readResourceImage(resourcePath);
+    var resourceImage = await readResourceImage(resourcePath);
 
     // create resource file
     final dstPath = '$dstDir/$resourcePath';
@@ -43,7 +43,7 @@ Future unpackScripts(String dstDir) async {
 /// Read script from resources and install in staging area.
 Future unpackScript(String srcPath, String dstDir) async {
   final resource = Resource('package:screenshots/$srcPath');
-  final String script = await resource.readAsString();
+  final script = await resource.readAsString();
   final file = await fs.file('$dstDir/$srcPath').create(recursive: true);
   await file.writeAsString(script, flush: true);
   // make executable

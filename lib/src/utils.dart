@@ -46,15 +46,15 @@ Map getIosSimulators() {
 Map transformIosSimulators(Map simsInfo) {
   // transform json to a Map of device name by a map of iOS versions by a list of
   // devices with a map of properties
-  // ie, Map<String, Map<String, List<Map<String, String>>>>
+  // ie, Map<String, Map<String, Listq<Map<String, String>>>>
   // In other words, just pop-out the device name for 'easier' access to
   // the device properties.
-  Map simsInfoTransformed = {};
+  var simsInfoTransformed = <String, dynamic>{};
 
   simsInfo.forEach((iOSName, sims) {
     // note: 'isAvailable' field does not appear consistently
     //       so using 'availability' as well
-    isSimAvailable(sim) =>
+    bool isSimAvailable(sim) =>
         sim['availability'] == '(available)' || sim['isAvailable'] == true;
     for (final sim in sims) {
       // skip if simulator unavailable
@@ -150,7 +150,7 @@ T getEnumFromString<T>(List<T> values, String value, {bool allowNull = false}) {
 String getAndroidDeviceLocale(String deviceId) {
 // ro.product.locale is available on first boot but does not update,
 // persist.sys.locale is empty on first boot but updates with locale changes
-  String locale = cmd([
+  var locale = cmd([
     getAdbPath(androidSdk),
     '-s',
     deviceId,
@@ -445,7 +445,7 @@ int runCmd(List<String> cmd) {
 
 /// Trace a command.
 void _traceCommand(List<String> args, {String workingDirectory}) {
-  final String argsText = args.join(' ');
+  final argsText = args.join(' ');
   if (workingDirectory == null) {
     printTrace('executing: $argsText');
   } else {
@@ -462,7 +462,7 @@ Future<void> streamCmd(
   Map<String, String> environment,
 }) async {
   if (mode == ProcessStartMode.normal) {
-    int exitCode = await runCommandAndStreamOutput(cmd,
+    var exitCode = await runCommandAndStreamOutput(cmd,
         workingDirectory: workingDirectory, environment: environment);
     if (exitCode != 0) {
       throw 'command failed: exitcode=$exitCode, cmd=\'${cmd.join(" ")}\', workingDirectory=$workingDirectory, mode=$mode';

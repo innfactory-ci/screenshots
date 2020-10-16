@@ -84,7 +84,7 @@ class Config {
 
   /// Check for active run type.
   /// Run types can only be one of [DeviceType].
-  isRunTypeActive(DeviceType runType) {
+  bool isRunTypeActive(DeviceType runType) {
     final deviceType = utils.getStringFromEnum(runType);
     return !(_configInfo['devices'][deviceType] == null ||
         _configInfo['devices'][deviceType].length == 0);
@@ -169,7 +169,7 @@ class Config {
       return utils.getEnumFromString(Orientation.values, orientation);
     }
 
-    List<ConfigDevice> configDevices = [];
+    var configDevices = <ConfigDevice>[];
 
     devices.forEach((deviceType, device) {
       device?.forEach((deviceName, deviceProps) {

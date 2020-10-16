@@ -7,13 +7,13 @@ import 'package:screenshots/src/screens.dart';
 import 'package:screenshots/src/utils.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('frame test', () {
     test('frame Nexus 9', () async {
-      final Screens screens = Screens();
+      final screens = Screens();
       await screens.init();
-      Map screen = screens.getScreen('Nexus 9');
-      final Config config = Config(configPath: 'test/screenshots_test.yaml');
+      var screen = screens.getScreen('Nexus 9');
+      final config = Config(configPath: 'test/screenshots_test.yaml');
 
       final Map ScreenResources = screen['resources'];
       await resources.unpackImages(ScreenResources, '/tmp/screenshots');

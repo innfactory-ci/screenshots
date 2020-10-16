@@ -11,8 +11,8 @@ class Screens {
 
   /// Get screens yaml file from resources and parse.
   Future<void> init() async {
-    final resource = Resource("package:screenshots/$_screensPath");
-    String screens = await resource.readAsString(encoding: utf8);
+    final resource = Resource('package:screenshots/$_screensPath');
+    var screens = await resource.readAsString(encoding: utf8);
     _screens = utils.parseYamlStr(screens);
   }
 

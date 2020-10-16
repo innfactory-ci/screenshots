@@ -66,10 +66,10 @@ void main() {
     });
 
     test('overlay statusbar', () async {
-      final Screens screens = Screens();
+      final screens = Screens();
       await screens.init();
       final screen = screens.getScreen('Nexus 6P');
-      final Config config = Config(configPath: 'test/screenshots_test.yaml');
+      final config = Config(configPath: 'test/screenshots_test.yaml');
       final Map scrnResources = screen['resources'];
       await resources.unpackImages(scrnResources, '/tmp/screenshots');
       final statusbarPath =
@@ -84,10 +84,10 @@ void main() {
     }, skip: true);
 
     test('append navbar', () async {
-      final Screens screens = Screens();
+      final screens = Screens();
       await screens.init();
       final screen = screens.getScreen('Nexus 9');
-      final Config config = Config(configPath: 'test/screenshots_test.yaml');
+      final config = Config(configPath: 'test/screenshots_test.yaml');
       final Map scrnResources = screen['resources'];
       await resources.unpackImages(scrnResources, '/tmp/screenshots');
       final screenshotNavbarPath =
@@ -102,10 +102,10 @@ void main() {
     }, skip: true);
 
     test('frame screenshot', () async {
-      final Screens screens = Screens();
+      final screens = Screens();
       await screens.init();
       final screen = screens.getScreen('Nexus 9');
-      final Config config = Config(configPath: 'test/screenshots_test.yaml');
+      final config = Config(configPath: 'test/screenshots_test.yaml');
       final Map scrnResources = screen['resources'];
       await resources.unpackImages(scrnResources, '/tmp/screenshots');
       final framePath = config.stagingDir + '/' + scrnResources['frame'];
@@ -171,7 +171,7 @@ void main() {
         'resources/android/phones/Nexus_5X.png'
       ];
       final dest = '/tmp';
-      for (String resource in scrnResources) {
+      for (var resource in scrnResources) {
         await resources.writeImage(
             await resources.readResourceImage(resource), '$dest/$resource');
       }
@@ -429,8 +429,8 @@ void main() {
         'emulator': false,
         'model': 'iPhone 5c (GSM)'
       });
-      String deviceName = 'iPhone 5c';
-      DaemonDevice device = utils.getDevice([expected], deviceName);
+      var deviceName = 'iPhone 5c';
+      var device = utils.getDevice([expected], deviceName);
       expect(device, expected);
       final isDeviceAttached = (device) => device != null;
       expect(isDeviceAttached(device), true);
@@ -453,7 +453,7 @@ void main() {
       ''';
 
       final configInfo = Config(configStr: config);
-      DeviceType deviceType = run.getDeviceType(configInfo, deviceName);
+      var deviceType = run.getDeviceType(configInfo, deviceName);
       expect(deviceType, expected);
     });
 
@@ -473,13 +473,13 @@ void main() {
       // start emulator
       final deviceId = await daemonClient.launchEmulator(emulatorId);
 
-      Map props = getDeviceProps(deviceId);
+      var props = getDeviceProps(deviceId);
       final newProps = Map.from(props);
       newProps['xmpp.auto-presence'] = false; //changed
       newProps['xxx'] = 'yyy'; // added
       newProps.remove('wifi.direct.interface'); // removed
 
-      final Map diffs = diffMaps(props, newProps);
+      final diffs = diffMaps(props, newProps);
       expect(diffs, expected);
       expect(
           await run.shutdownAndroidEmulator(daemonClient, deviceId), deviceId);
@@ -507,7 +507,7 @@ void main() {
         await daemonClient.start;
         final emulatorId = 'Nexus_6P_API_28';
         final deviceId = await daemonClient.launchEmulator(emulatorId);
-        String actual = await utils.waitSysLogMsg(deviceId, expected, toLocale);
+        var actual = await utils.waitSysLogMsg(deviceId, expected, toLocale);
 //      print('actual=$actual');
         expect(actual.contains(expected), isTrue);
         expect(await run.shutdownAndroidEmulator(daemonClient, deviceId),
@@ -559,7 +559,7 @@ void main() {
         pairs.forEach((behave, pair) async {
           final recordedImage = pair['recorded'];
           final comparisonImage = pair['comparison'];
-          bool doCompare = await runInContext<bool>(() async {
+          var doCompare = await runInContext<bool>(() async {
             return im.compare(comparisonImage, recordedImage);
           });
           behave == 'good'
@@ -734,7 +734,7 @@ void main() {
 
     group('config validate', () {
       test('config guide', () async {
-        final Screens screens = Screens();
+        final screens = Screens();
         await screens.init();
         final daemonClient = DaemonClient();
         await daemonClient.start;
@@ -886,7 +886,7 @@ void main() {
             'platformType': 'ios'
           })
         ];
-        DaemonDevice deviceInfo = run.findRunningDevice(
+        var deviceInfo = run.findRunningDevice(
             runningDevices, installedEmulators, androidDeviceName);
         expect(deviceInfo, androidDevice);
         deviceInfo = run.findRunningDevice(

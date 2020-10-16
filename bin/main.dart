@@ -16,7 +16,7 @@ void main(List<String> arguments) async {
   final buildArg = 'build';
   final helpArg = 'help';
   final verboseArg = 'verbose';
-  final ArgParser argParser = ArgParser(allowTrailingOptions: false)
+  final argParser = ArgParser(allowTrailingOptions: false)
     ..addOption(configArg,
         abbr: 'c',
         defaultsTo: kConfigFileName,
@@ -65,7 +65,7 @@ void main(List<String> arguments) async {
   if (!await isImageMagicInstalled()) {
     stderr.writeln(
         '#############################################################');
-    stderr.writeln("# You have to install ImageMagick to use Screenshots");
+    stderr.writeln('# You have to install ImageMagick to use Screenshots');
     if (Platform.isMacOS) {
       stderr.writeln(
           "# Install it using 'brew update && brew install imagemagick'");
@@ -78,7 +78,7 @@ void main(List<String> arguments) async {
 
   // validate args
   if (!await File(argResults[configArg]).exists()) {
-    _handleError(argParser, "File not found: ${argResults[configArg]}");
+    _handleError(argParser, 'File not found: ${argResults[configArg]}');
   }
 
   // Check flutter command is found
@@ -87,7 +87,7 @@ void main(List<String> arguments) async {
     stderr.writeln(
         '#############################################################');
     stderr.writeln("# 'flutter' must be in the PATH to use Screenshots");
-    stderr.writeln("# You can usually add it to the PATH using"
+    stderr.writeln('# You can usually add it to the PATH using'
         "# export PATH='\$HOME/Library/flutter/bin:\$PATH'");
     stderr.writeln(
         '#############################################################');
@@ -101,7 +101,7 @@ void main(List<String> arguments) async {
       stderr.writeln(
           '#############################################################');
       stderr.writeln("# 'adb' must be in the PATH to use Screenshots");
-      stderr.writeln("# You can usually add it to the PATH using"
+      stderr.writeln('# You can usually add it to the PATH using'
           "# export PATH='\$HOME/Library/Android/sdk/platform-tools:\$PATH'");
       stderr.writeln(
           '#############################################################');
@@ -111,7 +111,7 @@ void main(List<String> arguments) async {
       stderr.writeln(
           '#############################################################');
       stderr.writeln("# 'emulator' must be in the PATH to use Screenshots");
-      stderr.writeln("# You can usually add it to the PATH using"
+      stderr.writeln('# You can usually add it to the PATH using'
           "# export PATH='\$HOME/Library/Android/sdk/emulator:\$PATH'");
       stderr.writeln(
           '#############################################################');

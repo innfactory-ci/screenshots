@@ -204,7 +204,7 @@ class Screenshots {
       String deviceId;
       DaemonEmulator emulator;
       Map simulator;
-      bool pendingIosLocaleChangeAtStart = false;
+      var pendingIosLocaleChangeAtStart = false;
       if (device != null) {
         deviceId = device.id;
       } else {
@@ -395,9 +395,7 @@ class Screenshots {
   ) async {
     for (final testPath in config.tests) {
       final command = ['flutter', '-d', deviceId, 'drive'];
-      bool _isBuild() => isBuild != null
-          ? isBuild
-          : config.getDevice(configDeviceName).isBuild;
+      bool _isBuild() => isBuild ?? config.getDevice(configDeviceName).isBuild;
       if (!_isBuild()) {
         command.add('--no-build');
       }
@@ -405,7 +403,7 @@ class Screenshots {
       if (isFlavor()) {
         command.addAll(['--flavor', flavor]);
       }
-      command.addAll(testPath.split(" ")); // add test path or custom command
+      command.addAll(testPath.split(' ')); // add test path or custom command
       printStatus(
           'Running $testPath on \'$configDeviceName\' in locale $locale${isFlavor() ? ' with flavor $flavor' : ''}${!_isBuild() ? ' with no build' : ''}...');
       if (!_isBuild() && isFlavor()) {
@@ -497,7 +495,7 @@ Future<bool> setSimulatorLocale(String deviceId, String deviceName,
   // a running simulator
   final deviceLocale = utils.getIosSimulatorLocale(deviceId);
   printTrace('\'$deviceName\' locale: $deviceLocale, test locale: $testLocale');
-  bool localeChanged = false;
+  var localeChanged = false;
   if (Intl.canonicalizedLocale(testLocale) !=
       Intl.canonicalizedLocale(deviceLocale)) {
     printStatus(

@@ -15,12 +15,12 @@ import 'src/common_tools.dart';
 import 'src/context.dart';
 import 'src/mocks.dart';
 
-main() {
+void main() {
   final stagingDir = '/tmp/screenshots';
   final configAndroidDeviceName = 'Nexus 6P';
   final configIosDeviceName = 'iPhone X';
   final emulatorId = 'NEXUS_6P_API_28';
-  final List<String> stdinCaptured = <String>[];
+  final stdinCaptured = <String>[];
 
   Directory sdkDir;
 
@@ -102,11 +102,11 @@ main() {
               $configAndroidDeviceName:
           frame: false
       ''';
-        String adbPath = initAdbPath();
+        var adbPath = initAdbPath();
         final androidUSLocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
             ProcessResult(0, 0, 'en-US', ''));
         // fake process responses
-        final List<Call> calls = [
+        final calls = <Call>[
           ...unpackScriptsCalls,
 //          Call('$adbPath -s emulator-5554 emu avd name',
 //              ProcessResult(0, 0, 'Nexus_6P_API_28', '')),
@@ -147,11 +147,11 @@ main() {
                 orientation: LandscapeRight
           frame: true
       ''';
-        String adbPath = initAdbPath();
+        var adbPath = initAdbPath();
         final androidUSLocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
             ProcessResult(0, 0, 'en-US', ''));
         // fake process responses
-        final List<Call> calls = [
+        final calls = <Call>[
           ...unpackScriptsCalls,
 //          Call('$adbPath -s emulator-5554 emu avd name',
 //              ProcessResult(0, 0, 'Nexus_6P_API_28', '')),
@@ -200,12 +200,12 @@ main() {
           $configAndroidDeviceName:
       frame: false
       ''';
-        String adbPath = initAdbPath();
+        var adbPath = initAdbPath();
         final deviceId = 'emulator-5554';
         final androidUSLocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
             ProcessResult(0, 0, 'en-US', ''));
         // fake process responses
-        final List<Call> calls = [
+        final calls = <Call>[
           ...unpackScriptsCalls,
           androidUSLocaleCall,
           androidUSLocaleCall,
@@ -303,12 +303,12 @@ main() {
         final callPlutilFrCA = Call(
             'plutil -convert json -o - //Library/Developer/CoreSimulator/Devices/$simulatorID/data/Library/Preferences/.GlobalPreferences.plist',
             ProcessResult(0, 0, '{"AppleLocale":"$locale2"}', ''));
-        String adbPath = initAdbPath();
+        var adbPath = initAdbPath();
         final androidEnUSLocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
             ProcessResult(0, 0, '$locale1', ''));
         final androidFrCALocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
             ProcessResult(0, 0, '$locale2', ''));
-        final List<Call> calls = [
+        final calls = <Call>[
           callListIosDevices,
           ...unpackScriptsCalls,
           androidEnUSLocaleCall,
@@ -390,7 +390,7 @@ main() {
             'category': 'mobile',
             'platformType': 'android',
             'ephemeral': true,
-            "emulatorId": emulatorId,
+            'emulatorId': emulatorId,
           },
           {
             'id': simulatorID,
@@ -401,13 +401,13 @@ main() {
             'platformType': 'ios',
             'ephemeral': true,
             'model': 'iPhone 5c (GSM)',
-            "emulatorId": simulatorID,
+            'emulatorId': simulatorID,
           }
         ];
         final daemonDevices =
             devices.map((device) => loadDaemonDevice(device)).toList();
 
-        final List<List<DaemonDevice>> devicesResponses = [
+        final devicesResponses = <List<DaemonDevice>>[
           [],
           daemonDevices,
           daemonDevices,
@@ -503,10 +503,10 @@ main() {
                  - LandscapeRight
           frame: false
       ''';
-      String adbPath = initAdbPath();
+      var adbPath = initAdbPath();
       final androidUSLocaleCall = Call('$adbPath -s $deviceId shell getprop persist.sys.locale',
           ProcessResult(0, 0, 'en-US', ''));
-      final List<Call> calls = [
+      final calls = <Call>[
         ...unpackScriptsCalls,
         androidUSLocaleCall,
         androidUSLocaleCall,
@@ -547,7 +547,7 @@ main() {
 
   group('utils', () {
     testUsingContext('change android locale of real device', () {
-      String adbPath = initAdbPath();
+      var adbPath = initAdbPath();
       final deviceId = 'deviceId';
       final deviceLocale = 'en-US';
       final testLocale = 'fr-CA';

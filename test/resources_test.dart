@@ -10,7 +10,7 @@ import 'src/context.dart';
 
 class PlainMockProcessManager extends Mock implements ProcessManager {}
 
-main() {
+void main() {
   group('resources', () {
     final tmpDir = '/tmp/screenshots_test';
 
@@ -36,7 +36,7 @@ main() {
 
     group('no context', () {
       test('unpack screen resource images', () async {
-        final Screens screens = Screens();
+        final screens = Screens();
         await screens.init();
         final screen = screens.getScreen('iPhone 7 Plus');
         final Map screenResources = screen['resources'];

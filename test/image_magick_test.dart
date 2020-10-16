@@ -2,7 +2,6 @@ import 'package:fake_process_manager/fake_process_manager.dart';
 import 'package:mockito/mockito.dart';
 import 'package:process/process.dart';
 import 'package:screenshots/src/context_runner.dart';
-import 'package:screenshots/src/globals.dart';
 import 'package:screenshots/src/image_magick.dart';
 import 'package:screenshots/src/image_processor.dart';
 import 'package:screenshots/src/utils.dart';
@@ -13,7 +12,7 @@ import 'src/context.dart';
 
 class PlainMockProcessManager extends Mock implements ProcessManager {}
 
-main() {
+void main() {
   group('image magick', () {
     ProcessManager mockProcessManager;
 
@@ -61,7 +60,7 @@ main() {
     test('threshold exceeded', () async {
       final imagePath = toPlatformPath('./test/resources/0.png');
       final cropSizeOffset = '1242x42+0+0';
-      bool isThresholdExceeded = await runInContext<bool>(() async {
+      var isThresholdExceeded = await runInContext<bool>(() async {
         return im.isThresholdExceeded(imagePath, cropSizeOffset, 0.5);
       });
       expect(isThresholdExceeded, isTrue);

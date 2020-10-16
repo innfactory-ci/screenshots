@@ -15,13 +15,13 @@ const sampleUsage = 'sample usage: frame -s screenshot.png -d \'Nexus 6P\'';
 const kFrameTestTmpDir = '/tmp/frame_test';
 const kRunMode = RunMode.normal;
 
-main(List<String> arguments) async {
+void main(List<String> arguments) async {
   ArgResults argResults;
 
   final screenshotArg = 'screenshot';
   final deviceArg = 'device';
   final helpArg = 'help';
-  final ArgParser argParser = ArgParser(allowTrailingOptions: false)
+  final argParser = ArgParser(allowTrailingOptions: false)
     ..addOption(screenshotArg,
         abbr: 's',
         defaultsTo: 'screenshot.png',
@@ -46,7 +46,7 @@ main(List<String> arguments) async {
 
   // validate args
   if (!await File(argResults[screenshotArg]).exists()) {
-    _handleError(argParser, "File not found: ${argResults[screenshotArg]}");
+    _handleError(argParser, 'File not found: ${argResults[screenshotArg]}');
   }
 
   final screenshotPath = argResults[screenshotArg];

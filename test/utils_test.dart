@@ -18,7 +18,7 @@ class FakeAndroidSDK extends Fake implements AndroidSdk {
   String get emulatorPath => 'path to emulator';
 }
 
-main() {
+void main() {
   group('utils', () {
     group('in context', () {
       FakeAndroidSDK fakeAndroidSdk;
