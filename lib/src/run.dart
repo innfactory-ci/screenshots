@@ -509,7 +509,13 @@ void changeAndroidLocale(String deviceId, String deviceLocale, String? testLocal
     'setprop',
     'persist.sys.locale',
     testLocale,
-    ';',
+  ], silent: false);
+
+  utils.cmd([
+    getAdbPath(androidSdk),
+    '-s',
+    deviceId,
+    'shell',
     'setprop',
     'ctl.restart',
     'zygote'
