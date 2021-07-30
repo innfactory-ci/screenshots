@@ -503,6 +503,10 @@ void changeAndroidLocale(String deviceId, String deviceLocale, String? testLocal
   // adb shell "setprop persist.sys.locale fr_CA; setprop ctl.restart zygote"
   utils.cmd([
     getAdbPath(androidSdk),
+    'root',
+  ], silent: false);
+  utils.cmd([
+    getAdbPath(androidSdk),
     '-s',
     deviceId,
     'shell',
