@@ -20,7 +20,8 @@ Future screenshotDriver(final driver, Config config, String name,
 
     final pixels = await driver.screenshot();
     final testDir = '${config.stagingDir}/$kTestScreenshotsDir';
-    final file = await File('$testDir/$name.$kImageExtension').create(recursive: true);
+    final file =
+        await File('$testDir/$name.$kImageExtension').create(recursive: true);
     await file.writeAsBytes(pixels);
     if (!silent) print('Screenshot $name created');
   } else {
@@ -28,7 +29,8 @@ Future screenshotDriver(final driver, Config config, String name,
   }
 }
 
-Future screenshot(IntegrationTestWidgetsFlutterBinding binding, WidgetTester tester, String name,
+Future screenshot(IntegrationTestWidgetsFlutterBinding binding,
+    WidgetTester tester, String name,
     {bool silent = false}) async {
   // This is required prior to taking the screenshot (Android only).
   await binding.convertFlutterSurfaceToImage();
