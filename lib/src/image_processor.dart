@@ -153,13 +153,16 @@ class ImageProcessor {
       }
 
       // move unframed screenshots to final destination
-      dstDir = fastlane.getDirPath(deviceType, locale, androidModelType,
-          framed: false);
-      // prefix screenshots with name of device before moving
-      await utils.prefixFilesInDir(unframedScreenshotsdir,
-          '$deviceName-${orientation == null ? kDefaultOrientation : utils.getStringFromEnum(orientation)}-');
-      printStatus('Moving unframed screenshots to $dstDir');
-      utils.moveFiles(unframedScreenshotsdir, dstDir);
+      final unframedScreenshotPaths = fs.directory(unframedScreenshotsdir);
+      if (unframedScreenshotPaths.existsSync()) {
+        dstDir = fastlane.getDirPath(deviceType, locale, androidModelType,
+            framed: false);
+        // prefix screenshots with name of device before moving
+        await utils.prefixFilesInDir(unframedScreenshotsdir,
+            '$deviceName-${orientation == null ? kDefaultOrientation : utils.getStringFromEnum(orientation)}-');
+        printStatus('Moving unframed screenshots to $dstDir');
+        utils.moveFiles(unframedScreenshotsdir, dstDir);
+      }
     }
     return true; // for testing
   }
