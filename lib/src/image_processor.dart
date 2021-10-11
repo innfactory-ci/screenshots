@@ -256,13 +256,13 @@ class ImageProcessor {
     // select black or white status bar based on brightness of area to be overlaid
     // todo: add black and white status bars
     if (im.isThresholdExceeded(screenshotPath, _kCrop) &&
-        screenResources.containsKey('statusbar black')) {
-      // use black status bar
-      statusbarPath = '$tmpDir/${screenResources['statusbar black']}';
-    } else if (!im.isThresholdExceeded(screenshotPath, _kCrop) &&
         screenResources.containsKey('statusbar white')) {
       // use white status bar
       statusbarPath = '$tmpDir/${screenResources['statusbar white']}';
+    } else if (!im.isThresholdExceeded(screenshotPath, _kCrop) &&
+        screenResources.containsKey('statusbar black')) {
+      // use black status bar
+      statusbarPath = '$tmpDir/${screenResources['statusbar black']}';
     }
 
     im.overlay(
@@ -285,13 +285,13 @@ class ImageProcessor {
     var navbarPath = '$tmpDir/${screenResources['navbar']}';
     // select black or white nav bar based on brightness of area to be overlaid
     if (im.isThresholdExceeded(screenshotPath, _kCrop) &&
-        screenResources.containsKey('navbar black')) {
-      // use black nav bar
-      navbarPath = '$tmpDir/${screenResources['navbar black']}';
-    } else if (!im.isThresholdExceeded(screenshotPath, _kCrop) &&
         screenResources.containsKey('navbar white')) {
       // use white nav bar
       navbarPath = '$tmpDir/${screenResources['navbar white']}';
+    } else if (!im.isThresholdExceeded(screenshotPath, _kCrop) &&
+        screenResources.containsKey('navbar black')) {
+      // use black nav bar
+      navbarPath = '$tmpDir/${screenResources['navbar black']}';
     }
 
     im.overlay(
