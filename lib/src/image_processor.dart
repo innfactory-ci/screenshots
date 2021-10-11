@@ -39,13 +39,13 @@ class ImageProcessor {
   ///
   /// After processing, screenshots are handed off for upload via fastlane.
   Future<bool> process(
-      DeviceType deviceType,
-      String deviceName,
-      String locale,
-      Orientation? orientation,
-      RunMode? runMode,
-      Archive? archive,
-      ) async {
+    DeviceType deviceType,
+    String deviceName,
+    String locale,
+    Orientation? orientation,
+    RunMode? runMode,
+    Archive? archive,
+  ) async {
     final screenProps = _screens.getScreen(deviceName);
     final screenshotsDir = '${_config.stagingDir}/$kTestScreenshotsDir';
     final unframedScreenshotsdir = '${screenshotsDir}_unframed';
@@ -123,7 +123,7 @@ class ImageProcessor {
     // move screenshots to final destination for upload to stores via fastlane
     if (screenshotPaths.isNotEmpty) {
       final androidModelType =
-      fastlane.getAndroidModelType(screenProps, deviceName);
+          fastlane.getAndroidModelType(screenProps, deviceName);
       var dstDir = fastlane.getDirPath(deviceType, locale, androidModelType,
           framed: true);
       runMode == RunMode.recording
@@ -145,7 +145,7 @@ class ImageProcessor {
         printStatus(
             'Running comparison with recorded screenshots in $recordingDir ...');
         final failedCompare =
-        await compareImages(deviceName, recordingDir, dstDir);
+            await compareImages(deviceName, recordingDir, dstDir);
         if (failedCompare.isNotEmpty) {
           showFailedCompare(failedCompare);
           throw 'Error: comparison failed.';
@@ -184,14 +184,14 @@ class ImageProcessor {
         .directory(comparisonDir)
         .listSync()
         .where((screenshot) =>
-    p.basename(screenshot.path).contains(deviceName) &&
-        !p.basename(screenshot.path).contains(ImageMagick.kDiffSuffix))
+            p.basename(screenshot.path).contains(deviceName) &&
+            !p.basename(screenshot.path).contains(ImageMagick.kDiffSuffix))
         .forEach((screenshot) {
       final screenshotName = p.basename(screenshot.path);
       final recordedImageEntity = recordedImages.firstWhere(
-              (image) => p.basename(image.path) == screenshotName,
+          (image) => p.basename(image.path) == screenshotName,
           orElse: (() =>
-          throw 'Error: screenshot $screenshotName not found in $recordingDir'));
+              throw 'Error: screenshot $screenshotName not found in $recordingDir'));
 
       if (!im.compare(screenshot.path, recordedImageEntity.path)) {
         failedCompare[screenshotName] = {
@@ -205,9 +205,9 @@ class ImageProcessor {
   }
 
   static void addBackgroundIfRequired(
-      Map screen,
-      String screenshotPath,
-      ) {
+    Map screen,
+    String screenshotPath,
+  ) {
     final background = im.isThresholdExceeded(screenshotPath, _kCrop)
         ? screen['background dark']
         : screen['background light'];
@@ -236,11 +236,11 @@ class ImageProcessor {
 
   /// Overlay status bar over screenshot.
   static Future<void> overlayStatusbar(
-      String tmpDir,
-      Map screenResources,
-      Map screen,
-      String screenshotPath,
-      ) async {
+    String tmpDir,
+    Map screenResources,
+    Map screen,
+    String screenshotPath,
+  ) async {
     // if no status bar skip
     // todo: get missing status bars
     if (screenResources['statusbar'] == null) {
