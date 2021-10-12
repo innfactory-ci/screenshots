@@ -153,6 +153,18 @@ class ImageMagick {
     return result == '1';
   }
 
+  void removeAlphaChannel(String imagePath) {
+    // mogrify -alpha off logo.png
+    _imageMagickCmd(
+      'mogrify',
+      [
+        '-alpha',
+        'off',
+        imagePath,
+      ],
+    );
+  }
+
   bool compare(String comparisonImage, String recordedImage) {
     final diffImage = getDiffImagePath(comparisonImage);
 

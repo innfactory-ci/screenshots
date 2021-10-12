@@ -67,6 +67,11 @@ class ImageProcessor {
         printStatus('Warning: no screenshots found in $screenshotsDir');
       }
       for (final screenshotPath in screenshotPaths) {
+        // remove alpha channel due to App Store requirements
+        removeAlphaChannelIfRequired(
+          screenshotPath.path,
+        );
+
         // enforce correct size and add background if necessary
         addBackgroundIfRequired(
           screenProps,
@@ -205,6 +210,12 @@ class ImageProcessor {
       }
     });
     return failedCompare;
+  }
+
+  static void removeAlphaChannelIfRequired(
+    String screenshotPath,
+  ) {
+    im.removeAlphaChannel(screenshotPath);
   }
 
   static void addBackgroundIfRequired(
